@@ -1,4 +1,4 @@
-# Material for Lawrencium 101 training held on 12 Oct 2022
+# Material for Lawrencium 101 training held on 12^th Oct 2022
 This training covers topics to get users started on the Lab’s institutional cluster Lawrencium. The training is designed such that it covers the topics and handon exercises for new users to get acquainted with Lawrencium supercluster. The training is also benificial for advanced users for refreshing forgotton concepts. The training is conducted vertually and video recording accessed on this page.  
 
 In this training, we will give an overview of the Lawrencium supercluster with mostly hands-on sessions. Here are the primary objectives of the training:
