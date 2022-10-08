@@ -13,7 +13,7 @@ In this training, we will give an overview of the Lawrencium supercluster with m
 Date: Wednesday, October 12, 2021
 Time: 3:00PM – 4:30PM
 Zoom: zoom link will be provided upon registration.
-Registration is required
+Registration is required.
 
 Please contact us at hpcshelp@lbl.gov if you have any questions.
 
