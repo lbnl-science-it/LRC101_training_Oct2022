@@ -584,9 +584,9 @@ lr5          up   infinite    115   idle n0005.lr5,n0007.lr5,n0008.lr5
 ```
 squeue –u $USER
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-          28757187       lr6     bash wfeinste  R       0:09      1 n0215.lr6
-          28757723       es1     bash wfeinste  R       0:16      1 n0002.es1
-          28759191       lr6     bash wfeinste PD       0:00    120 (QOSMaxNodePerJobLimit)
+          28757187       lr6     bash spsoni  R       0:09      1 n0215.lr6
+          28757723       es1     bash spsoni  R       0:16      1 n0002.es1
+          28759191       lr6     bash spsoni PD       0:00    120 (QOSMaxNodePerJobLimit)
 ```
 ----
 - sacct: check job information or history
@@ -677,11 +677,6 @@ Detailed training materials can be found on [github](https://github.com/lbnl-sci
 
 ---
 # Remote Visulization
-
-- Allow users to run a real desktop within the cluster environment
-- Allow applications with a GUI, commercial applications, debugger or visualization applications to render results.
-
-  - Remote Desktop launched within Open OnDemand - **coming up, stay tuned**
 
   - viz node lrc-viz.lbl.gov
   - RealVNC is provided as the remote desktop service with local VNC Viewer
