@@ -31,8 +31,8 @@ img[alt~="center"] {
 <!-- paginate: true -->
 # Outline
 <style scoped>section { font-size: 26px; }</style>
-1. [Lawrencium supercluster Overview](#1)
-2. [Access/login to clusters](#1)
+1. [Lawrencium supercluster Overview](#3)
+2. [Access and login to Lawrencium](#5)
 3. [Software access and installation](#1)
 4. [Job submission and monitoring](#1)
 5. [Data transfer to/from clusters](#1)
@@ -42,6 +42,7 @@ img[alt~="center"] {
 
 ## Lawrencium Cluster Overview
 <style scoped>section { font-size: 24px; }</style>
+
 - A LBNL Condo Cluster Computing Program
   - Support researchers in all disciplines at the Lab
   - Significant investment by the IT division
@@ -52,47 +53,49 @@ img[alt~="center"] {
   - data center is housed in the building 50B
   - 1238 CPU Compute nodes, more than 37,192 cores
   - 152 GPU cards
-  - 8 partitions, lr3, lr4, lr5,lr6, es1, cm1
-  - ~1300 user accounts
-  - ~530 groups
+  - 6 partitions, lr3, lr4, lr5,lr6, es1, cm1
+  - ~1490 user accounts
+  - ~385 groups
 
-- Standalone Clusters
+
 
 ---
 
 # Conceptual Diagram of Lawrencium
-![center:80% vertical w:930](figures/lrc1.png)
+![bg center w:920](figures/lrc1.png)
 
+<style scoped>section { font-size: 20px; }</style>
 [Detailed Information of Lawrencium](https://it.lbl.gov/resource/hpc/supported-research-clusters/lawrencium/)
 
 ----
-## Getting Access to Lawrencium
+## Access to Lawrencium Cluster 
 
-#### Project Accounts
+#### Getting Project Accounts
 - Three types of project accounts can be requested.   
-  1. *Primary Investigator (PI) Computing Allowance (PCA) account*: free 300K SUs per year (pc_xxx)
-  2. *Condo account*: PIs buy in compute nodes to be added to the general pool, in exchange for their own priority access and share the Lawrencium infrastructure (lr_xxx)
-  3. *Recharge account*: pay as you go with minimal recharge rate ~ $0.01/SU (ac_xxx)
+  1. **Primary Investigator (PI) Computing Allowance (PCA) account**: free 300K service units (SUs) per year (pc_xxx)
+  2. **Condo account**: PIs buy in compute nodes to be added to the general pool, in exchange for their own priority access and share the Lawrencium infrastructure (lr_xxx)
+  3. **Recharge account**: pay as you go with minimal recharge rate ~ $0.01/SU (ac_xxx)
 - Check out more details here. [Project Accounts](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/accounts/projects-accounts/)
+- The form based request are are now moved to [MyLRC portal](https://mylrc.lbl.gov/)
 - LBL affiliated PI can request project accout at [MyLRC portal](https://mylrc.lbl.gov/)
-- PIs can grant access researchers/students and external collaborators to their PCA/Condo/Recharge Projects.
+- PIs can grant PCA/Condo/Recharge projects access to researchers/students and external collaborators.
 
 ----
-## Getting Access to Lawrencium
+## Access to Lawrencium Cluster
 
-#### User Accounts
-- PIs can sponsor researchers/students and external collaborators for cluster accounts
+#### Getting User Accounts
+- PIs can sponsor researchers/students and external collaborators for cluster accounts.
 
-- Account requests and approval will happen through [MyLRC portal](https://mylrc.lbl.gov/).
+- Account requests and approval will be done through [MyLRC portal](https://mylrc.lbl.gov/).
   - Account creation request
   - PI approval 
   - Account creation
   - Users are notified upon account availability and OTP setup.
   
-- Detailed documentation will be published soon. Stay tuned!!
+- Detailed documentation will be published soon. **Stay tuned!!**
 ---
 
-# Login to Lawrencium Cluster
+## Login to Lawrencium Cluster
 <style scoped>section { font-size: 23px; }</style>
 - Linux: Terminal (command-line) session.
 - Mac: Terminal (see Applications -> Utilities -> Terminal).
@@ -110,28 +113,32 @@ password:0123456789
 Note: No characters will appear on the screen in the password prompt when you enter in the digits.
 
 ----
+## Login to Lawrencium Cluster
 Upon login to Lawrencium; you'll end up on one of the login nodes in your home directory
-```
-login nodes
-home directory show
-```
-- **DO NOT run jobs on login nodes!!**
+  ```
+  spsoni@n0000 ~]$ hostname
+  n0000.scs00
+  [spsoni@n0000 ~]$ pwd
+  /global/home/users/spsoni
+  [spsoni@n0000 ~]$ 
+  ```
+### **DO NOT run jobs on login nodes!!**
   
 ----
 
-# User Space
+## User Spaces
 
 - Home: `/global/home/users/$USER/` 20GB per user, data is backed up, recommended for keeping scripts and final results data
-- Global Scratch: `/global/scratch/$USER/`, shared, no backup, recommended for launching jobs
+- Global Scratch: `/global/scratch/$USER/`, shared, no backup, high performance Lustre parallel filesystem, recommended for keeping non-persistent data for computation.
 - Shared group project space
    - /global/home/groups-sw/  200GB backup
    - /global/home/group/ 400GB no backup
 - Condo Storage:
   - `e.g. /clusterfs/etna/ or /global/scratch/projects/xxx`
 
-----
+---
 
-# Data Transfer 
+## Data Transfer 
 <style scoped>section { font-size: 22px; }</style>
 
 #### lrc-xfer.lbl.gov: Data Transfer Node (DTN)
@@ -139,21 +146,30 @@ home directory show
 ```
 # Transfer data from a local machine to Lawrencium
 scp file-xxx $USER@lrc-xfer.lbl.gov:/global/home/users/$USER
-scp -r dir-xxx $USER@lrc-xfer.lbl.gov:/global/scratch/$USER
+scp -r dir-xxx $USER@lrc-xfer.lbl.gov:/global/scratch/users/$USER
 
 # Transfer from Lawrencium to a local machine
-scp $USER@lrc-xfer.lbl.gov:/global/scratch/$USER/file-xxx ~/Desktop
+scp $USER@lrc-xfer.lbl.gov:/global/scratch/users/$USER/file-xxx ~/Desktop
 
 # Transfer from Lawrencium to Another Institute
 ssh $USER@lrc-xfer.lbl.gov   # DTN
 scp -r $USER@lrc-xfer.lbl.gov:/file-on-lawrencium $USER@other-institute:/destination/path/$USER
 
-rsync: a better data transfer tool as a backup tool
-rsync -avpz file-at-local $USER@lrc-xfer.lbl.gov:/global/home/user/$USER
+rsync: a better data transfer or a backup tool
+rsync -avpz file-at-local $USER@lrc-xfer.lbl.gov:/global/home/users/$USER
 ```
 - On Window
   - [WinSCP](https://winscp.net/eng/index.php): SFTP client and FTP client for Microsoft Windows 
   - [FileZella](https://filezilla-project.org/): multi-platform program via SFTP
+---
+
+### FileZella
+##### Site Mager (On top right corner) 
+![w:700 center](figures/FileZella.png)
+<style scoped>section { font-size: 22px; }</style>
+Click on connect to connect Lawrencium for file transfer.
+Enter your username and password(same LRC credentials) in the pop-up window.
+Once the coneection is estblished you are ready to drag and drop files to/from lawrencium.
 
 ---
 
@@ -161,20 +177,20 @@ rsync -avpz file-at-local $USER@lrc-xfer.lbl.gov:/global/home/user/$USER
 <style scoped>section { font-size: 22px; }</style>
 
 - Globus can be used for fast data transfer and sharing with collaborators: Click for [Instuctions](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/data-movement-and-storage/globus/)
-- Berkeley Lab users can use Globus to transfer files in/out of their LBNL Google drive. Details about Google Drive via Globus is [Here](https://commons.lbl.gov/display/itdivision/GDrive+Access+Via+Globus)
+- Berkeley Lab users can use Globus to transfer files in/out of their LBNL Google drive. Click for [Instructions](https://it.lbl.gov/resource/globus/globus-for-google-drive/)
 - Possible endpoints include: lbnl#lrc, ucb#brc, your laptop/desktop, NERSC.
 - Transfer data to/from your laptop (endpoint setup)
    - Create an endpoint on your machine using Globus Connect Personal [globus-connect-personal](https://www.globus.org/globus-connect-personal)
    - Run Globus Connect Pesonal on your local machine
 
-![bg w:600 right](figures/globus.jpg)
+![bg w:600 right](figures/globus.png)
 
 ----
 
 ## Software Module Farm 
-<style scoped>section { font-size: 23px; }</style>
+<style scoped>section { font-size: 22px; }</style>
 
-- Software stack, commonly used compiler, software tools provided to all cluster users
+- Software stack, commonly used compiler, software tools provided to all users
 - Installed and maintained on a centralized storage device and mounted as read-only NFS file system
    - Compilers: e.g. intel, gcc, MPI compilers, Python
    - Tools: e.g.matlab, singularity, cuda
@@ -182,9 +198,11 @@ rsync -avpz file-at-local $USER@lrc-xfer.lbl.gov:/global/home/user/$USER
    - Libraries: e.g. fftw, lapack
 
 ```
-[@n0000.scs00 ~]$ module avail
----- /global/software/sl-7.x86_64/modfiles/langs ----
-gcc/6.3.0  intel/2016.4.072  python/2.7 python/3.5 cuda/9.0 julia/0.5.0 ...
+[spsoni@n0003 spsoni]$ module avail
+-------------------------- /global/software/sl-7.x86_64/modfiles/langs ---------------------------
+clang/11                  gcc/7.5.0                 perl/5.36.0
+clang/3.9.1               gcc/9.2.0                 python/2.7
+ ...
 
 ---- /global/software/sl-7.x86_64/modfiles/tools ----
 cmake/3.7.2  gnuplot/5.0.5  octave/4.2.0 matlab/r2017b(default)  ...
@@ -193,7 +211,6 @@ cmake/3.7.2  gnuplot/5.0.5  octave/4.2.0 matlab/r2017b(default)  ...
 bio/blast/2.6.0 math/octave/current ml/tensorflow/2.5.0-py37 ...
 ...
 ```
-
 ----
 
 ## Environment Modules
@@ -204,7 +221,7 @@ bio/blast/2.6.0 math/octave/current ml/tensorflow/2.5.0-py37 ...
 ```  
 module purge: clear user’s work environment
 module available: check available software packages
-module load xxx*: load a package
+module load packagename/version: load a package
 module list: check currently loaded software
 ```
 - Modules are arranged in a hierarchical fashion, some of the modules become available only after the parent module(s) are loaded
@@ -221,7 +238,7 @@ module load mkl/2016.4.072 openmpi/3.0.1-intel
 - Want to learn more about the Environment Modules? [Click here](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/software-module-farm/)
 - Users are allowed to install software in their home or group space. All group memebers can access packages installed in group space.
 - Users don't have admin rights, but most software can be installed at custom path using 
-` --prefix=/dir/to/your/path`
+` --prefix=/path/to/your/dir`
 
 ---
 
@@ -232,18 +249,18 @@ module load mkl/2016.4.072 openmpi/3.0.1-intel
 - `export PYTHONPATH`
 ```
 
-[wfeinstein@n0000 ~]$ module load python/3.7
+[spsoni@n0000 ~]$ module load python/3.9.12
 
-[wfeinstein@n0000 ~]$ python3 -m site --user-site
+[spsoni@n0000 ~]$ python3 -m site --user-site
 /global/home/users/wfeinstein/.local/lib/python3.7/site-packages
 
-[wfeinstein@n0000 ~]$ pip install --user ml-python
+[spsoni@n0000 ~]$ pip install --user ml-python
 ...
 Successfully built ml-python
 Installing collected packages: ml-python
 Successfully installed ml-python-2.2
 
-[wfeinstein@n0000 ~]$ export PYTHONPATH=~/.local/lib/python3.7/site-packages:$PYTHONPATH
+[spsoni@n0000 ~]$ export PYTHONPATH=~/.local/lib/python3.7/site-packages:$PYTHONPATH
 ```
 ---
 # Installing Python Packages
@@ -251,13 +268,17 @@ Successfully installed ml-python-2.2
 - pip install: `--install-option="--prefix=$HOME/.local" package_name`
 - Install from source code: `python setup.py install –home=/home/user/package_dir`
 - Creat a virtual environmemt: `python -m venv my_env`
-- Isolated Python environment: `python`
-- Activate environment:
+  - Activate environment: `source my_env/bin/activate`
+  - Install packages into it: `python -m pip install <package-name>`
+  - Deactivate  environment: `deactivate`
+- Conda environemnet: `conda create -p /global/scratch/users/spsoni/my_env numpy=1.21`
+  - Activate environment: `source activate /global/scratch/users/spsoni/my_env`
+  - Deactivateenvoronment: `conda deactivate`
 ---
 
 ## SLURM: Resource Manager & Job Scheduler
 
-SLURM is the resource manager and job scheduler to managing all the jobs on the cluster
+SLURM is the resource manager and job scheduler for managing all the jobs on the cluster.
 
 Why is this necessary?
 
@@ -278,30 +299,31 @@ Basic workflow:
 - Can be used in your job submission scripts to adapt the resources being requested in order to avoid hard-code
 - Examples of Slurm variables
 
-  - SLURM_WORKDIR
-  - SLURM_NTASKS
-  - SLURM_CPUS_PER_TASK
-  - SLURM_CPUS_ON_NODE
-  - SLURM_NODELIST
-  - SLURM_NNODES
+  - SLURM_SUBMIT_DIR : The path of the job submission directory.
+  - SLURM_NTASKS : The number of tasks. Same as -n, –ntasks.
+  - SLURM_CPUS_PER_TASK: Number of CPUs per task.
+  - SLURM_CPUS_ON_NODE: Number of CPUs on the allocated node.
+  - SLURM_NODELIST:Contains the definition (list) of the nodes that is assigned to the job.
+  - SLURM_NNODES: Total number of nodes in the job’s resource allocation.
 ----
 # Accounts, Partitions, Quality of Service (QOS)
 
 Check slurm association, such as qos, account, partition, the information is required when submitting a job
 
 ```
-sacctmgr show association user=wfeinstein -p
+sacctmgr show association user=spsoni -p
 
 Cluster|Account|User|Partition|Share|Priority|GrpJobs|GrpTRES|GrpSubmit|GrpWall|GrpTRESMins|MaxJobs|MaxTRES|MaxTRESPerNode|MaxSubmit|MaxWall|MaxTRESMins|QOS|Def QOS|GrpTRESRunMins|
-perceus-00|pc_scs|wfeinstein|lr6|1||||||||||||lr_debug,lr_lowprio,lr_normal|||
-perceus-00|ac_test|wfeinstein|lr5|1||||||||||||lr_debug,lr_lowprio,lr_normal|||
-perceus-00|pc_test|wfeinstein|lr4|1||||||||||||lr_debug,lr_lowprio,lr_normal|||
-perceus-00|pc_test|wfeinstein|lr_bigmem|1||||||||||||lr_debug,lr_lowprio,lr_normal|||
-perceus-00|lr_test|wfeinstein|lr3|1||||||||||||condo_test|||
-perceus-00|scs|wfeinstein|es1|1||||||||||||es_debug,es_lowprio,es_normal|||
+perceus-00|pc_scs|spsoni|ood_inter|1||||||||||||lr_interactive|||
+perceus-00|pc_scs|spsoni|lr6|1||||||||||||lr_debug,lr_lowprio,lr_normal|||
+perceus-00|ac_test|spsoni|lr5|1||||||||||||lr_debug,lr_lowprio,lr_normal|||
+perceus-00|pc_test|spsoni|lr4|1||||||||||||lr_debug,lr_lowprio,lr_normal|||
+perceus-00|pc_test|spsoni|lr_bigmem|1||||||||||||lr_debug,lr_lowprio,lr_normal|||
+perceus-00|lr_test|spsnoni|lr3|1||||||||||||condo_test|||
+perceus-00|scs|spsnoni|es1|1||||||||||||es_debug,es_lowprio,es_normal|||
 ...
 ```
-Lawrencium Cluster Info Click [Here](https://sites.google.com/a/lbl.gov/high-performance-computing-services-group/lbnl-supercluster/lawrencium)
+Lawrencium Cluster Info Click [Here](https://it.lbl.gov/resource/hpc/lawrencium/)
 
 ----
 # Job Submission: Interactive Job
@@ -315,13 +337,13 @@ Interactive job submission is typically used for code debugging, testing, monito
 - `srun --account=ac_xxx --nodes=1 --partition=lr5 --qos=lr_normal --time=1:0:0 --pty bash`
 - `srun -A ac_xxx -N 1 -p lr5 -q lr_normal -t 1:0:0 --pty bash`
 ```
-[wfeinstein@n0003 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --pty bash
+[spsoni@n0003 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --pty bash
 srun: Granted job allocation 28755918
 srun: Waiting for resource configuration
 srun: Nodes n0101.lr6 are ready for job
-[wfeinstein@n0101 ~]$ squeue -u wfeinstein
+[spsoni@n0101 ~]$ squeue -u spsoni
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-          28755918       lr6     bash wfeinste  R       0:14      1 n0101.lr6
+          28755918       lr6     bash spsoni  R       0:14      1 n0101.lr6
 ```
 Once you are on the assigned compute node, start application/commands directly
 
@@ -334,19 +356,19 @@ Once you are on the assigned compute node, start application/commands directly
 # Node Features 
 <style scoped>section { font-size: 23px; }</style>
 Compute nodes may have different hardware within a SLURM partition, e.g. LR6 - lr6_sky: Intel Skylak, lr6_cas: Intel Cascade Lake, lr6_cas,lr6_m192: lr6_cas + 192GB RAM, lr6_sky,lr6_m192: lr6_sky + 192GB RAM 
-- Lawrencium nodes features can be found [here](https://it.lbl.gov/resource/hpc/supported-research-clusters/lawrencium/).
+- Lawrencium nodes features can be found [here](https://it.lbl.gov/resource/hpc/lawrencium/)).
 - When a specific type of node is requsted, wait time typically is longer
 - Slurm flag: --constrain
 ```
-[wfeinstein@n0000 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --constrain=lr6_sky --pty bash
-[wfeinstein@n0081 ~]$ free -h
+[spsoni@n0000 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --constrain=lr6_sky --pty bash
+[spsoni@n0081 ~]$ free -h
               total        used        free      shared  buff/cache   available
 Mem:            93G        2.2G         83G        3.1G        7.4G         87G
 Swap:          8.0G          0B        8.0G
-[wfeinstein@n0081 ~]$ exit
+[spsoni@n0081 ~]$ exit
 exit
-[wfeinstein@n0000 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --constrain=lr6_sky,lr6_m192 --pty bash
-[wfeinstein@n0023 ~]$ free -h
+[spsoni@n0000 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --constrain=lr6_sky,lr6_m192 --pty bash
+[spsoni@n0023 ~]$ free -h
               total        used        free      shared  buff/cache   available
 Mem:           187G        2.6G        172G        1.7G         12G        182G
 Swap:          8.0G        1.5G        6.5G
@@ -408,8 +430,8 @@ python my.py >& mypy.out
 ```
 srun -A your_acct -N 1 -p es1 --gres=gpu:1 --ntasks=2 -q es_normal –t 0:30:0 --pty bash
 
-[wfeinstein@n0000 ~]$ srun -A scs -N 1 -p es1 --gres=gpu:1 --ntasks=2 -q es_normal -t 0:30:0 --pty bash
-[wfeinstein@n0019 ~]$ nvidia-smi
+[spsoni@n0000 ~]$ srun -A scs -N 1 -p es1 --gres=gpu:1 --ntasks=2 -q es_normal -t 0:30:0 --pty bash
+[spsoni@n0019 ~]$ nvidia-smi
 Sat Feb  6 10:13:25 2021
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 440.44       Driver Version: 440.44       CUDA Version: 10.2     |
@@ -438,13 +460,13 @@ Sat Feb  6 10:13:25 2021
   - A40: (6 2U A40 coming up)
 
 ```
-[wfeinstein@n0000 ~]$ srun -A scs -N 1 -p es1 --gres=gpu:V100:2 --ntasks=4 -q es_normal -t 0:30:0 --pty bash
+[spsoni@n0000 ~]$ srun -A scs -N 1 -p es1 --gres=gpu:V100:2 --ntasks=4 -q es_normal -t 0:30:0 --pty bash
 
-[wfeinstein@n0016 ~]$ nvidia-smi -L
+[spsoni@n0016 ~]$ nvidia-smi -L
 GPU 0: Tesla V100-SXM2-16GB (UUID: GPU-7979861e-e0ad-000f-95fb-371e34593991)
 GPU 1: Tesla V100-SXM2-16GB (UUID: GPU-50d24ac9-9eea-f96b-cc8b-db849f9c9427)
 
-[wfeinstein@n0016 ~]$ echo $CUDA_VISIBLE_DEVICES
+[spsoni@n0016 ~]$ echo $CUDA_VISIBLE_DEVICES
 0,1
 
 ```
@@ -530,7 +552,7 @@ GNU Parallel is a shell tool for executing jobs in parallel on one or multiple c
 
 **task.lst**: each line provides one parameter to one task:
 ```
-[user@n0002 ]$ cat task.lst
+[spsoni@n0002 ]$ cat task.lst
  ../blast/data/protein1.faa
  ../blast/data/protein2.faa
  ...
@@ -550,7 +572,7 @@ Detailed information of how to submit serial tasks in parallel with [GNU Paralle
 
 - sinfo: check node status of a partition (idle, allocated, drain, down) 
 ```
-[wfeinstein@n0000 ~]$ sinfo –r –p lr5
+[spsoni@n0000 ~]$ sinfo –r –p lr5
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST 
 lr5          up   infinite      3 drain* n0004.lr5,n0032.lr5,n0169.lr5
 lr5          up   infinite     14   down n0048.lr5,n0050.lr5
@@ -570,30 +592,30 @@ squeue –u $USER
 - sacct: check job information or history
 
 ```
-[wfeinstein@n0002 ~]$ sacct -j 28757723
+[spsoni@n0002 ~]$ sacct -j 28757723
        JobID    JobName  Partition    Account  AllocCPUS      State ExitCode
 ------------ ---------- ---------- ---------- ---------- ---------- -------- 
 28757723           bash        es1        scs          2    RUNNING      0:0
 
-[wfeinstein@n0002 ~]$ sacct -X -o 'jobid,user,partition,nodelist,stat'
+[spsoni@n0002 ~]$ sacct -X -o 'jobid,user,partition,nodelist,stat'
        JobID      User  Partition        NodeList      State
 ------------ --------- ---------- --------------- ---------- 
-28755594     wfeinste+        lr5       n0192.lr5  COMPLETED
-28755597     wfeinste+        lr6       n0101.lr6  COMPLETED
-28755598     wfeinste+        lr5       n0192.lr5  COMPLETED
-28755604     wfeinste+ csd_lr6_s+       n0144.lr6  COMPLETED
-28755693     wfeinste+        lr6       n0101.lr6 CANCELLED+
+28755594     spsoni        lr5       n0192.lr5  COMPLETED
+28755597     spsoni        lr6       n0101.lr6  COMPLETED
+28755598     spsoni        lr5       n0192.lr5  COMPLETED
+28755604     spsoni csd_lr6_s+       n0144.lr6  COMPLETED
+28755693     spsoni        lr6       n0101.lr6 CANCELLED+
 ....
-28757187     wfeinste+        lr6       n0215.lr6  COMPLETED
-28757386     wfeinste+        es1       n0019.es1     FAILED
-28757389     wfeinste+        es1       n0002.es1    TIMEOUT
-28757723     wfeinste+        es1       n0002.es1    RUNNING
+28757187     spsoni        lr6       n0215.lr6  COMPLETED
+28757386     spsoni        es1       n0019.es1     FAILED
+28757389     spsoni        es1       n0002.es1    TIMEOUT
+28757723     spsoni       es1       n0002.es1    RUNNING
 ```
 ---
 
 - `wwall -j <JOB_ID>`: check resouce utilization of an active job from a login node
 ```
-[wfeinstein@n0000 ~]$ wwall -j 28757187
+[spsoni@n0000 ~]$ wwall -j 28757187
 --------------------------------------------------------------------------------
 Total CPU utilization: 0%
           Total Nodes: 1
