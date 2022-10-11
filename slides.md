@@ -51,13 +51,11 @@ img[alt~="center"] {
 
 - Lawrencium Compute Nodes
   - data center is housed in the building 50B
-  - 1238 CPU Compute nodes, more than 37,192 cores
-  - 152 GPU cards
-  - 6 partitions, lr3, lr4, lr5,lr6, es1, cm1
-  - ~1490 user accounts
-  - ~385 groups
-
-
+  - Over 2333 compute nodes (~58216 CPU cores)
+  - 230 GPU cards
+  - 32 partitions, lr3, lr4, lr5,lr6, es1, cm1 ...
+  - 1492 user accounts 
+  - 382 projects/groups
 
 ---
 
@@ -92,7 +90,7 @@ img[alt~="center"] {
   - Account creation
   - Users are notified upon account availability and OTP setup.
   
-- Detailed documentation will be published soon. **Stay tuned!!**
+- Please check out 
 ---
 
 ## Login to Lawrencium Cluster
@@ -114,7 +112,7 @@ Note: No characters will appear on the screen in the password prompt when you en
 
 ----
 ## Login to Lawrencium Cluster
-Upon login to Lawrencium; you'll end up on one of the login nodes in your home directory
+Upon login to Lawrencium; you'll end up on one of the login nodes(n000[0-3].scs00) in your home directory.
   ```
   spsoni@n0000 ~]$ hostname
   n0000.scs00
@@ -336,6 +334,7 @@ Interactive job submission is typically used for code debugging, testing, monito
 
 - `srun --account=ac_xxx --nodes=1 --partition=lr5 --qos=lr_normal --time=1:0:0 --pty bash`
 - `srun -A ac_xxx -N 1 -p lr5 -q lr_normal -t 1:0:0 --pty bash`
+
 ```
 [spsoni@n0003 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --pty bash
 srun: Granted job allocation 28755918
@@ -348,7 +347,7 @@ srun: Nodes n0101.lr6 are ready for job
 Once you are on the assigned compute node, start application/commands directly
 
 - salloc: similarly to *srun --pty bash*.
-- a new bash session will start up on the login node
+- a new bash session will start up on the compute node, –pty gives you a pseudo terminal
 
 
 ----
@@ -356,8 +355,8 @@ Once you are on the assigned compute node, start application/commands directly
 # Node Features 
 <style scoped>section { font-size: 23px; }</style>
 Compute nodes may have different hardware within a SLURM partition, e.g. LR6 - lr6_sky: Intel Skylak, lr6_cas: Intel Cascade Lake, lr6_cas,lr6_m192: lr6_cas + 192GB RAM, lr6_sky,lr6_m192: lr6_sky + 192GB RAM 
-- Lawrencium nodes features can be found [here](https://it.lbl.gov/resource/hpc/lawrencium/)).
-- When a specific type of node is requsted, wait time typically is longer
+- Lawrencium nodes features can be found [here](https://it.lbl.gov/resource/hpc/lawrencium/).
+- When a specific type of node is requested, wait time typically is longer
 - Slurm flag: --constrain
 ```
 [spsoni@n0000 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --constrain=lr6_sky --pty bash
@@ -674,15 +673,6 @@ On successful authentication you will see a OOD dashboard.
 
 Lets do quick demo!
 Detailed training materials can be found on [github](https://github.com/lbnl-science-it/OOD_training_july2022).
-
----
-# Remote Visulization
-
-  - viz node lrc-viz.lbl.gov
-  - RealVNC is provided as the remote desktop service with local VNC Viewer
-  - Start VNC service on viz node lrc-viz.lbl.gov
-  - Connect to the VNC server with VNC Viewer locally
-  - Start applications: Firefox, Jupyter notebooks, paraview ...
 
 ---
 
