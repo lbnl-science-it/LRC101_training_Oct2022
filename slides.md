@@ -20,9 +20,8 @@ img[alt~="center"] {
 <!-- _class: lead -->
 <!-- _paginate: false -->
 # Lawrencium 101 : HPC on Lawrencium Supercluster
-#### Sapana Soni
-#### HPCS User support team
-
+### Sapana Soni
+###### HPCS User Support Team
 
 ---
 
@@ -158,10 +157,10 @@ rsync -avpz file-at-local $USER@lrc-xfer.lbl.gov:/global/home/users/$USER
 ```
 - On Window
   - [WinSCP](https://winscp.net/eng/index.php): SFTP client and FTP client for Microsoft Windows 
-  - [FileZella](https://filezilla-project.org/): multi-platform program via SFTP
+  - [FileZilla](https://filezilla-project.org/): multi-platform program via SFTP
 ---
 
-### FileZella
+### FileZilla
 ##### Site Mager (On top right corner) 
 ![w:700 center](figures/FileZella.png)
 <style scoped>section { font-size: 22px; }</style>
@@ -303,6 +302,7 @@ Basic workflow:
   - SLURM_CPUS_ON_NODE: Number of CPUs on the allocated node.
   - SLURM_NODELIST:Contains the definition (list) of the nodes that is assigned to the job.
   - SLURM_NNODES: Total number of nodes in the job’s resource allocation.
+Recently, slurm on lawrencium is updated to version 22.05.3
 ----
 # Accounts, Partitions, Quality of Service (QOS)
 
@@ -356,7 +356,7 @@ Once you are on the assigned compute node, start application/commands directly
 <style scoped>section { font-size: 23px; }</style>
 Compute nodes may have different hardware within a SLURM partition, e.g. LR6 - lr6_sky: Intel Skylak, lr6_cas: Intel Cascade Lake, lr6_cas,lr6_m192: lr6_cas + 192GB RAM, lr6_sky,lr6_m192: lr6_sky + 192GB RAM 
 - Lawrencium nodes features can be found [here](https://it.lbl.gov/resource/hpc/lawrencium/).
-- When a specific type of node is requested, wait time typically is longer
+- wait time is longer when a specific type of node is requested
 - Slurm flag: --constrain
 ```
 [spsoni@n0000 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --constrain=lr6_sky --pty bash
@@ -394,7 +394,7 @@ Swap:          8.0G        1.5G        6.5G
 - sbatch: submit a job to the batch queue system `sbatch myjob.sh`
 
 ```
-#!/bin/bash -l
+#!/bin/bash
 # Job name:
 #SBATCH --job-name=mytest
 # Partition:
@@ -414,7 +414,7 @@ Swap:          8.0G        1.5G        6.5G
 # cd to your work directory
 cd /your/dir
 ## Commands to run
-module load python/3.7
+module load python/3.9.12
 python my.py >& mypy.out
 ```
 
@@ -427,36 +427,38 @@ python my.py >& mypy.out
 - ratio CPU_CORE#:GPU# = 2:1
 
 ```
-srun -A your_acct -N 1 -p es1 --gres=gpu:1 --ntasks=2 -q es_normal –t 0:30:0 --pty bash
-
 [spsoni@n0000 ~]$ srun -A scs -N 1 -p es1 --gres=gpu:1 --ntasks=2 -q es_normal -t 0:30:0 --pty bash
-[spsoni@n0019 ~]$ nvidia-smi
-Sat Feb  6 10:13:25 2021
+[spsoni@n0022 ~]$ nvidia-smi
+Mon Oct 10 16:17:49 2022       
 +-----------------------------------------------------------------------------+
-| NVIDIA-SMI 440.44       Driver Version: 440.44       CUDA Version: 10.2     |
+| NVIDIA-SMI 460.84       Driver Version: 460.84       CUDA Version: 11.2     |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
 |===============================+======================+======================|
 |   0  Tesla V100-SXM2...  Off  | 00000000:62:00.0 Off |                    0 |
-| N/A   45C    P0    53W / 300W |      0MiB / 16160MiB |      0%      Default |
+| N/A   44C    P0    52W / 300W |      0MiB / 16160MiB |      0%      Default |
+|                               |                      |                  N/A |
 +-------------------------------+----------------------+----------------------+
 |   1  Tesla V100-SXM2...  Off  | 00000000:89:00.0 Off |                    0 |
-| N/A   45C    P0    55W / 300W |      0MiB / 16160MiB |      0%      Default |
+| N/A   43C    P0    54W / 300W |      0MiB / 16160MiB |      0%      Default |
+|                               |                      |                  N/A |
 +-------------------------------+----------------------+----------------------+
 +-----------------------------------------------------------------------------+
-| Processes:                                                       GPU Memory |
-|  GPU       PID   Type   Process name                             Usage      |
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
 +-----------------------------------------------------------------------------+
 ```
 ----
 - Specify GPU type
-  - GTX1080TI: --gres=gpu:GTX1080TI:1 (decommissioned)
+
   - GRTX2080TI: --gres=gpu:GRTX2080TI:1
-  - V00: --gres=gpu:V100:1
-  - A40: (6 2U A40 coming up)
+  - V100: --gres=gpu:V100:1
+  - A40: --gres=gpu:A40:1
 
 ```
 [spsoni@n0000 ~]$ srun -A scs -N 1 -p es1 --gres=gpu:V100:2 --ntasks=4 -q es_normal -t 0:30:0 --pty bash
@@ -501,7 +503,9 @@ When using multiple nodes, you need to carefully specify the resources. The key 
 - --nodes (or -N): number of nodes
 - --ntasks-per-node: number of tasks (i.e., processes) to run on each node, especially useful when your job uses large memory, < Max Core# on a node
 - --ntasks (or -n): total number of tasks and let the scheduler determine how many nodes and tasks per node are needed. 
-- *NOTE:* `--cpus-per-task` does not behave correctly at this time. Please refrain from using it until further notice.
+
+- `--cpus-per-task` : number of cpus to be used for each task
+
 
 ----
 
@@ -523,7 +527,7 @@ Job submission script
 cd /your/dir
 
 ## Commands to run
-module load intel/2016.4.072 openmpi/3.0.1-intel
+module load gcc/11.3.0 openmpi/4.1.4-gcc
 mpirun -np 40 ./my_mpi_exe        ## Launch your MPI application
 ```
 
@@ -569,7 +573,7 @@ Detailed information of how to submit serial tasks in parallel with [GNU Paralle
 ----
 # Monitoring Jobs
 
-- sinfo: check node status of a partition (idle, allocated, drain, down) 
+- **sinfo**: check node status of a partition (idle, allocated, drain, down) 
 ```
 [spsoni@n0000 ~]$ sinfo –r –p lr5
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST 
@@ -579,7 +583,7 @@ lr5          up   infinite     58  alloc n0000.lr5,n0001.lr5,n0002.lr5,n0003.lr5
 lr5          up   infinite    115   idle n0005.lr5,n0007.lr5,n0008.lr5
 ...
 ```
-- squeue: check job status in the batch queuing system (R or PD)
+- **squeue**: check job status in the batch queuing system (R or PD)
 ```
 squeue –u $USER
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
@@ -588,7 +592,7 @@ squeue –u $USER
           28759191       lr6     bash spsoni PD       0:00    120 (QOSMaxNodePerJobLimit)
 ```
 ----
-- sacct: check job information or history
+- **sacct**: check job information or history
 
 ```
 [spsoni@n0002 ~]$ sacct -j 28757723
@@ -629,7 +633,7 @@ Total CPU utilization: 0%
 n0215.lr6               0%   (40) % 3473/192058    % 1655/8191      READY
 ```
 
-- `scancel <jobID>` : scancel a job
+- `scancel <jobID>` : scancels a job
 
 More Information of [Slurm Usage](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/running-jobs/)
 
@@ -683,9 +687,10 @@ Detailed training materials can be found on [github](https://github.com/lbnl-sci
     - Online [request](https://docs.google.com/forms/d/e/1FAIpQLScBbNcr0CbhWs8oyrQ0pKLmLObQMFmYseHtrvyLfOAoIInyVA/viewform)
 - Send us tickets at hpcshelp@lbl.gov
 - More information about LBNL Supercluster and scientic computing services can be found [here](https://it.lbl.gov/service/scienceit/).
-
-Your feedback is important to us for improving HPC services and training.
+- Looking for more trainings? Upcoming training are regularly announced [here](https://it.lbl.gov/resource/hpc/for-users/training-and-tutorials/). Other than LBNL HPC trainings  you can also access [DLab](https://dlab.berkeley.edu/partners/lbl) courses.
+  
+Your feedback is important to us for improving HPC services and training. 
 Please fill out [training survey](https://docs.google.com/forms/d/e/1FAIpQLSfFZ4k87FMzom6vrk9TgMyph-uu9jp0T6oEZF3cV1lYPKLSwA/viewform)
 
-![w:240 center](Figures/thankyou.png)
----
+![w:140 center](Figures/thankyou.png)
+
