@@ -59,7 +59,7 @@ img[alt~="center"] {
 ---
 
 # Conceptual Diagram of Lawrencium
-![bg center w:920](figures/lrc1.png)
+![bg center w:920](figures/lrc1_novis.png)
 
 <style scoped>section { font-size: 20px; }</style>
 [Detailed Information of Lawrencium](https://it.lbl.gov/resource/hpc/supported-research-clusters/lawrencium/)
@@ -73,7 +73,7 @@ img[alt~="center"] {
   2. **Condo account**: PIs buy in compute nodes to be added to the general pool, in exchange for their own priority access and share the Lawrencium infrastructure (lr_xxx)
   3. **Recharge account**: pay as you go with minimal recharge rate ~ $0.01/SU (ac_xxx)
 - Check out more details here. [Project Accounts](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/accounts/projects-accounts/)
-- The form based request are are now moved to [MyLRC portal](https://mylrc.lbl.gov/)
+- The form based request are now moved to [MyLRC portal](https://mylrc.lbl.gov/)
 - LBL affiliated PI can request project accout at [MyLRC portal](https://mylrc.lbl.gov/)
 - PIs can grant PCA/Condo/Recharge projects access to researchers/students and external collaborators.
 
@@ -107,7 +107,7 @@ img[alt~="center"] {
 `
 password:0123456789
 `
-Note: No characters will appear on the screen in the password prompt when you enter in the digits.
+Note: Characters won't appear on the screen in the password prompt when you enter in the digits.
 
 ----
 ## Login to Lawrencium Cluster
@@ -161,19 +161,19 @@ rsync -avpz file-at-local $USER@lrc-xfer.lbl.gov:/global/home/users/$USER
 ---
 
 ### FileZilla
-##### Site Mager (On top right corner) 
+##### Site Manager (on the top right corner) 
 ![w:700 center](figures/FileZella.png)
 <style scoped>section { font-size: 22px; }</style>
-Click on connect to connect Lawrencium for file transfer.
+Click on connect to access Lawrencium for file transfer.
 Enter your username and password(same LRC credentials) in the pop-up window.
-Once the coneection is estblished you are ready to drag and drop files to/from lawrencium.
+Once the coneection is estblished, you are ready to drag and drop files to/from lawrencium.
 
 ---
 
 ## Data Transfer with Globus
 <style scoped>section { font-size: 22px; }</style>
 
-- Globus can be used for fast data transfer and sharing with collaborators: Click for [Instuctions](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/data-movement-and-storage/globus/)
+- Globus can be used for fast data transfer and sharing with collaborators: Click for [Instructions](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/data-movement-and-storage/globus/)
 - Berkeley Lab users can use Globus to transfer files in/out of their LBNL Google drive. Click for [Instructions](https://it.lbl.gov/resource/globus/globus-for-google-drive/)
 - Possible endpoints include: lbnl#lrc, ucb#brc, your laptop/desktop, NERSC.
 - Transfer data to/from your laptop (endpoint setup)
@@ -187,10 +187,10 @@ Once the coneection is estblished you are ready to drag and drop files to/from l
 ## Software Module Farm 
 <style scoped>section { font-size: 22px; }</style>
 
-- Software stack, commonly used compiler, software tools provided to all users
+- Software stack, commonly used compiler, software tools are provided to all users
 - Installed and maintained on a centralized storage device and mounted as read-only NFS file system
    - Compilers: e.g. intel, gcc, MPI compilers, Python
-   - Tools: e.g.matlab, singularity, cuda
+   - Tools: e.g.matlab, singularity/apptainer, cuda
    - Applications: e.g. machine learning, QChem, MD, cp2k
    - Libraries: e.g. fftw, lapack
 
@@ -198,7 +198,7 @@ Once the coneection is estblished you are ready to drag and drop files to/from l
 [spsoni@n0003 spsoni]$ module avail
 -------------------------- /global/software/sl-7.x86_64/modfiles/langs ---------------------------
 clang/11                  gcc/7.5.0                 perl/5.36.0
-clang/3.9.1               gcc/9.2.0                 python/2.7
+clang/3.9.1               gcc/11.3.0                 python/3.9.12
  ...
 
 ---- /global/software/sl-7.x86_64/modfiles/tools ----
@@ -528,7 +528,7 @@ cd /your/dir
 
 ## Commands to run
 module load gcc/11.3.0 openmpi/4.1.4-gcc
-mpirun -np 40 ./my_mpi_exe        ## Launch your MPI application
+ -np 40 ./my_mpi_exe        ## Launch your MPI application
 ```
 
 ---
