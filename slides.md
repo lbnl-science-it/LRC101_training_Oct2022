@@ -75,7 +75,7 @@ img[alt~="center"] {
 - Check out more details here. [Project Accounts](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/accounts/projects-accounts/)
 - The form based request are now moved to [MyLRC portal](https://mylrc.lbl.gov/)
 - LBL affiliated PI can request project accout at [MyLRC portal](https://mylrc.lbl.gov/)
-- PIs can grant PCA/Condo/Recharge projects access to researchers/students and external collaborators.
+- PIs can grant PCA/condo/recharge project access to researchers/students and external collaborators.
 
 ----
 ## Access to Lawrencium Cluster
@@ -89,7 +89,7 @@ img[alt~="center"] {
   - Account creation
   - Users are notified upon account availability and OTP setup.
   
-- Please check out 
+- Check out [documentation](https://it.lbl.gov/service/scienceit/high-performance-computing/lrc/mylrc-lawrencium-account-managemen-tsystem/).
 ---
 
 ## Login to Lawrencium Cluster
@@ -107,11 +107,11 @@ img[alt~="center"] {
 `
 password:0123456789
 `
-Note: Characters won't appear on the screen in the password prompt when you enter in the digits.
+Note: Characters won't appear on a screen in the password prompt when you enter in the digits.
 
 ----
 ## Login to Lawrencium Cluster
-Upon login to Lawrencium; you'll end up on one of the login nodes(n000[0-3].scs00) in your home directory.
+Upon login to Lawrencium, you'll end up on one of the login nodes(n000[0-3].scs00) in your home directory.
   ```
   spsoni@n0000 ~]$ hostname
   n0000.scs00
@@ -126,7 +126,7 @@ Upon login to Lawrencium; you'll end up on one of the login nodes(n000[0-3].scs0
 ## User Spaces
 
 - Home: `/global/home/users/$USER/` 20GB per user, data is backed up, recommended for keeping scripts and final results data
-- Global Scratch: `/global/scratch/$USER/`, shared, no backup, high performance Lustre parallel filesystem, recommended for keeping non-persistent data for computation.
+- Global Scratch: `/global/scratch//users/$USER/`, shared, no backup, high performance Lustre parallel filesystem, recommended for keeping non-persistent data for computation.
 - Shared group project space
    - /global/home/groups-sw/  200GB backup
    - /global/home/group/ 400GB no backup
@@ -173,8 +173,9 @@ Once the coneection is estblished, you are ready to drag and drop files to/from 
 ## Data Transfer with Globus
 <style scoped>section { font-size: 22px; }</style>
 
-- Globus can be used for fast data transfer and sharing with collaborators: Click for [Instructions](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/data-movement-and-storage/globus/)
-- Berkeley Lab users can use Globus to transfer files in/out of their LBNL Google drive. Click for [Instructions](https://it.lbl.gov/resource/globus/globus-for-google-drive/)
+- Globus can be used for fast data transfer and sharing with collaborators. Connect to globus  https://globus.lbl.gov  
+- [Globus for Lawrencium](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/data-movement-and-storage/globus/)
+- Berkeley Lab users can use Globus to transfer files in/out of their LBNL [Google drive](https://it.lbl.gov/resource/globus/globus-for-google-drive/).
 - Possible endpoints include: lbnl#lrc, ucb#brc, your laptop/desktop, NERSC.
 - Transfer data to/from your laptop (endpoint setup)
    - Create an endpoint on your machine using Globus Connect Personal [globus-connect-personal](https://www.globus.org/globus-connect-personal)
@@ -249,28 +250,27 @@ module load mkl/2016.4.072 openmpi/3.0.1-intel
 [spsoni@n0000 ~]$ module load python/3.9.12
 
 [spsoni@n0000 ~]$ python3 -m site --user-site
-/global/home/users/wfeinstein/.local/lib/python3.7/site-packages
-
+/global/home/users/spsoni/.local/lib/python3.9/site-packages
 [spsoni@n0000 ~]$ pip install --user ml-python
 ...
 Successfully built ml-python
 Installing collected packages: ml-python
 Successfully installed ml-python-2.2
 
-[spsoni@n0000 ~]$ export PYTHONPATH=~/.local/lib/python3.7/site-packages:$PYTHONPATH
+[spsoni@n0000 ~]$ export PYTHONPATH=~/.local/lib/python3.9/site-packages/$PYTHONPATH
 ```
 ---
 # Installing Python Packages
 
 - pip install: `--install-option="--prefix=$HOME/.local" package_name`
-- Install from source code: `python setup.py install –home=/home/user/package_dir`
-- Creat a virtual environmemt: `python -m venv my_env`
+- Install from source code: `python setup.py install –-prefix=/home/user/package_dir`
+- Create a virtual environmemt: `python -m venv my_env`
   - Activate environment: `source my_env/bin/activate`
   - Install packages into it: `python -m pip install <package-name>`
   - Deactivate  environment: `deactivate`
-- Conda environemnet: `conda create -p /global/scratch/users/spsoni/my_env numpy=1.21`
+- Conda environemnet: `conda create -p /global/scratch/users/spsoni/my_env <package-name>`
   - Activate environment: `source activate /global/scratch/users/spsoni/my_env`
-  - Deactivateenvoronment: `conda deactivate`
+  - Deactivate environment: `conda deactivate`
 ---
 
 ## SLURM: Resource Manager & Job Scheduler
@@ -293,7 +293,7 @@ Basic workflow:
 # Slurm-Related Environment Variables
 
 - Slurm provides global variables
-- Can be used in your job submission scripts to adapt the resources being requested in order to avoid hard-code
+- Can be used in your job submission scripts to adapt the resources being requested in order to avoid hard-coding
 - Examples of Slurm variables
 
   - SLURM_SUBMIT_DIR : The path of the job submission directory.
@@ -302,11 +302,11 @@ Basic workflow:
   - SLURM_CPUS_ON_NODE: Number of CPUs on the allocated node.
   - SLURM_NODELIST:Contains the definition (list) of the nodes that is assigned to the job.
   - SLURM_NNODES: Total number of nodes in the job’s resource allocation.
-Recently, slurm on lawrencium is updated to version 22.05.3
+
 ----
 # Accounts, Partitions, Quality of Service (QOS)
 
-Check slurm association, such as qos, account, partition, the information is required when submitting a job
+Check slurm association, such as qos, account, partition, the information using following command. 
 
 ```
 sacctmgr show association user=spsoni -p
@@ -321,7 +321,8 @@ perceus-00|lr_test|spsnoni|lr3|1||||||||||||condo_test|||
 perceus-00|scs|spsnoni|es1|1||||||||||||es_debug,es_lowprio,es_normal|||
 ...
 ```
-Lawrencium Cluster Info Click [Here](https://it.lbl.gov/resource/hpc/lawrencium/)
+This information is required when submitting a job.
+For Lawrencium cluster information click [here](https://it.lbl.gov/resource/hpc/lawrencium/)
 
 ----
 # Job Submission: Interactive Job
@@ -329,7 +330,7 @@ Lawrencium Cluster Info Click [Here](https://it.lbl.gov/resource/hpc/lawrencium/
 
 Interactive job submission is typically used for code debugging, testing, monitoring.
 
-- srun: add your resource request to the queue.
+- **srun**: add your resource request to the queue.
 - When the allocation starts, a new bash session will start up on one of the granted nodes
 
 - `srun --account=ac_xxx --nodes=1 --partition=lr5 --qos=lr_normal --time=1:0:0 --pty bash`
@@ -346,7 +347,7 @@ srun: Nodes n0101.lr6 are ready for job
 ```
 Once you are on the assigned compute node, start application/commands directly
 
-- salloc: similarly to *srun --pty bash*.
+- **salloc**: similarly to *srun --pty bash*
 - a new bash session will start up on the compute node, –pty gives you a pseudo terminal
 
 
@@ -366,18 +367,13 @@ Mem:            93G        2.2G         83G        3.1G        7.4G         87G
 Swap:          8.0G          0B        8.0G
 [spsoni@n0081 ~]$ exit
 exit
-[spsoni@n0000 ~]$ srun --account=scs --nodes=1 --partition=lr6 --time=1:0:0 --qos=lr_normal --constrain=lr6_sky,lr6_m192 --pty bash
-[spsoni@n0023 ~]$ free -h
-              total        used        free      shared  buff/cache   available
-Mem:           187G        2.6G        172G        1.7G         12G        182G
-Swap:          8.0G        1.5G        6.5G
 ```
 
 ---
 # Memory Specification 
 
 - Most Lawrencium partitions are exclusive: a compute node allows only one user
-- Some condo accounts or partitions, such as ES1 (GPUs), each compute node can be shared by multiple users
+- Some condo accounts or partitions, such as es1 (GPUs), each compute node can be shared by multiple users
 
 - Slurm flag: --mem (MB) is required when using a shared partition:
 - e.g. a compute node with 96GB RAM, 40 core node: 2300 RAM/core
@@ -392,21 +388,17 @@ Swap:          8.0G        1.5G        6.5G
 <style scoped>section { font-size: 21px; }</style>
 - Get help with the complete command options `sbatch --help`
 - sbatch: submit a job to the batch queue system `sbatch myjob.sh`
+  
+**myjob.sh** : Job submission script for serial job
 
 ```
 #!/bin/bash
-# Job name:
-#SBATCH --job-name=mytest
-# Partition:
-#SBATCH --partition=lr6
-# Account:
-#SBATCH --account=pc_test
-# qos:
-#SBATCH --qos=lr_normal
-# Wall clock time:
-#SBATCH --time=1:00:00
-# Node count
-#SBATCH --nodes=1
+#SBATCH --job-name=mytest   # Job name
+#SBATCH --partition=lr6     # Partition
+#SBATCH --account=pc_test   # Account, replace it with your own account allocation
+#SBATCH --qos=lr_normal     # qos
+#SBATCH --time=1:00:00      # Wall clock time
+#SBATCH --nodes=1           # Node count
 #SBATCH --constrain=lr6_cas
 #SBATCH --mail-user=xxx@lbl.gov
 ##SBATCH --mail-type=BEGIN/END/FAIL
@@ -420,7 +412,7 @@ python my.py >& mypy.out
 
 ----
 
-# Submit Jobs to ES1 GPU Partition
+# Submit Jobs to es1 GPU Partition
 <style scoped>section { font-size: 18px; }</style>
 - `--gres=gpu:type:GPU#`
 - `--ntasks=CPU_CORE#`
@@ -454,11 +446,12 @@ Mon Oct 10 16:17:49 2022
 +-----------------------------------------------------------------------------+
 ```
 ----
-- Specify GPU type
+- Specify GPU type : --gres=gpu[*type*]:*count*
 
-  - GRTX2080TI: --gres=gpu:GRTX2080TI:1
-  - V100: --gres=gpu:V100:1
-  - A40: --gres=gpu:A40:1
+  - GRTX2080TI(GPU count = 3 or 4): --gres=gpu:GRTX2080TI:1
+  - V100(GPU count = 2): --gres=gpu:V100:1
+  - A40(GPU count = 4): --gres=gpu:A40:1
+- In above example only one gpu is used but count can be set to total number of GPUs at the max.
 
 ```
 [spsoni@n0000 ~]$ srun -A scs -N 1 -p es1 --gres=gpu:V100:2 --ntasks=4 -q es_normal -t 0:30:0 --pty bash
@@ -475,7 +468,7 @@ GPU 1: Tesla V100-SXM2-16GB (UUID: GPU-50d24ac9-9eea-f96b-cc8b-db849f9c9427)
 -----
 # Submit A GPU Batch Job 
 
-Job Submission Script Example
+**myjob_gpu.sh**: Job Submission Script for GPUs
 
 ```
 #!/bin/bash -l
@@ -489,20 +482,21 @@ Job Submission Script Example
 #SBATCH --gres=gpu:V100:2       ## GPUs
 #SBATCH --ntasks=4              ## CPU cores
 #
-cd /your/dir
+#cd /your/dir
+#Number of GPUs, this can be in the format of "gpu:[1-4]", or "gpu:V100:[1-2] with the type included
 
 ## Commands to run
-module load python/3.7
-python my.py >& mypy.out
+module load ml/tensorflow/2.5.0-py37
+python tf.py >& tf.out
 ```
 ----
 # Submiting  MPI Jobs
 
 When using multiple nodes, you need to carefully specify the resources. The key flags to use in your job script are:
 
-- --nodes (or -N): number of nodes
-- --ntasks-per-node: number of tasks (i.e., processes) to run on each node, especially useful when your job uses large memory, < Max Core# on a node
-- --ntasks (or -n): total number of tasks and let the scheduler determine how many nodes and tasks per node are needed. 
+- `--nodes` or `-N`: number of nodes
+- `--ntasks-per-node`: number of tasks (i.e., processes) to run on each node, especially useful when your job uses large memory, < Max Core# on a node
+- `--ntasks` or `-n`: total number of tasks and let the scheduler determine how many nodes and tasks per node are needed. 
 
 - `--cpus-per-task` : number of cpus to be used for each task
 
@@ -510,25 +504,22 @@ When using multiple nodes, you need to carefully specify the resources. The key 
 ----
 
 ## Submiting  MPI Jobs 
-Job submission script
-
+**myjob_mpi.sh**: Job submission script
 ```
-#!/bin/bash -l
-
-#SBATCH --job-name=myMPI
-#SBATCH --partition=lr6
-#SBATCH --account=scs
-#SBATCH --qos=lr_normal
-#SBATCH --time=2:00:00
-#SBATCH --nodes=2                ## Nodes count
-##SBATCH --ntasks=40             ## Number of total MPI tasks to launch (example):
+#!/bin/bash
+#SBATCH --job-name=test_mpi
+#SBATCH --account=pc_test
+#SBATCH --partition=lr6 
+#SBATCH --qos=lr_debug
+#SBATCH --ntasks=40 # Number of MPI tasks needed for use case (example):
+#SBATCH --nodes=2   # Nodes count
 ##SBATCH --ntasks-per-node=20    ## important with large memory requirement
 
-cd /your/dir
-
-## Commands to run
+# Wall clock limit:
+#SBATCH --time=00:01:30
+## Command(s) to run (example):
 module load gcc/11.3.0 openmpi/4.1.4-gcc
- -np 40 ./my_mpi_exe        ## Launch your MPI application
+srun ./hello >& hello.out
 ```
 
 ---
@@ -543,31 +534,54 @@ GNU Parallel is a shell tool for executing jobs in parallel on one or multiple c
   - a list of tasks with parameters
 -  Example Using GNU Parallel
 
-    Bioinformatics tool *blastp* to compare 200 target protein sequences against sequence DB
+    Bioinformatics tool *blastp* to compare 200 RNA query sequences against sequence DB
     Serial bash script: **run-blast.sh**
-    ```
-    #!/bin/bash
-    module load  bio/blast/2.6.0
-    blastp -query $1 -db ../blast/db/img_v400_PROT.00 -out $2  -outfmt 7 -max_target_seqs 10 -num_threads 1
-    ```
+  ---
 
----
+```
+[spsoni@n0003 gnu_parallel]$ cat run-blast.sh 
+#!/bin/bash
+module load  bio/blast/2.13.0
+module load parallel/20200222
+blastn -db database/16S_ribosomal_RNA -query $1 -out $2 -task blastn -dust no -outfmt "7 \ 
+delim=, qacc sacc evalue bitscore qcovus pident" -max_target_seqs 5 
+```
 
 **task.lst**: each line provides one parameter to one task:
 ```
-[spsoni@n0002 ]$ cat task.lst
- ../blast/data/protein1.faa
- ../blast/data/protein2.faa
- ...
- ../blast/data/protein200.faa
+[spsoni@n0003 gnu_parallel]$ cat task.lst 
+data/query1.fa
+data/query2.fa
+.
+.
+ data/query200.fa
 ```
-Instead submit single core-jobs 200 times, which potentially need 200 nodes, GNU parallel sends single-core jobs in parallel using all the cores available, e.g. 2 compute nodes 32*2=64 parallel tasks. Once a CPU core becomes available, another job will be sent to this resource.   
+Instead submit single core-jobs 200 times, which potentially need 200 nodes, GNU parallel sends single-core jobs in parallel using all the cores available, e.g. 2 compute nodes 32*2=64 parallel tasks. Once a CPU core becomes available, another job will be sent to this resource.  
+
+---
+**myjob_gnuparallel.sh**: Slurm script for gnu-parallel job submission on lawrencium
 ```
+#!/bin/bash
+#SBATCH --job-name=test_gnupar
+#SBATCH --account=pc_test
+#SBATCH --partition=lr6
+#SBATCH --qos=lr_normal
+#SBATCH --nodes=2
+#SBATCH --time=2:00:00
+
+## Command(s) to run (example):
+module load bio/blast/2.13.0
 module load parallel/20200222
-JOBS_PER_NODE=32
-parallel --jobs $JOBS_PER_NODE --slf hostfile --wd $WDIR --joblog task.log --resume --progress \
-                -a task.lst sh run-blast.sh {} output/{/.}.blst
+
+export WORKDIR=/global/scratch/users/spsoni/LRC101/gnu_parallel
+cd $WORKDIR
+
+echo $SLURM_JOB_NODELIST |sed s/\,/\\n/g |awk -v cores=$SLURM_CPUS_ON_NODE '{print cores"/"$1}' > hostfile
+mkdir -p output logs
+export JOBS_PER_NODE=32
+parallel --jobs $JOBS_PER_NODE --slf hostfile --wd $WORKDIR --joblog task.log  --progress -a task.lst sh run-blast.sh {} output/{/.}.blst
 ```
+Host file will be generated at run time by the above script. 
 Detailed information of how to submit serial tasks in parallel with [GNU Parallel](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/running-jobs/gnu-parallel/)
 
 ----
@@ -616,7 +630,7 @@ squeue –u $USER
 ```
 ---
 
-- `wwall -j <JOB_ID>`: check resouce utilization of an active job from a login node
+- `wwall -j <JOB_ID>`: check resources utilization of an active job from a login node
 ```
 [spsoni@n0000 ~]$ wwall -j 28757187
 --------------------------------------------------------------------------------
