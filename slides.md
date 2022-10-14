@@ -32,10 +32,10 @@ img[alt~="center"] {
 <style scoped>section { font-size: 26px; }</style>
 1. [Lawrencium supercluster Overview](#3)
 2. [Access and login to Lawrencium](#5)
-3. [Software access and installation](#1)
-4. [Job submission and monitoring](#1)
-5. [Data transfer to/from clusters](#1)
-6. [Open On Demand: a browser based HPCS portal](#1)
+3. [Data transfer to/from clusters](#10)
+4. [Software access and installation](#13)
+5. [Job submission and monitoring](#17)
+6. [Open On Demand: a browser based HPCS portal](#35)
 
 ---
 
@@ -268,8 +268,7 @@ Successfully installed ml-python-2.2
   - Deactivate environment: `conda deactivate`
 ---
 
-## SLURM: Resource Manager & Job Scheduler
-
+## Job Submission and Monitoring : SLURM
 SLURM is the resource manager and job scheduler for managing all the jobs on the cluster.
 
 Why is this necessary?
@@ -320,7 +319,7 @@ This information is required when submitting a job.
 For Lawrencium cluster information click [here](https://it.lbl.gov/resource/hpc/lawrencium/)
 
 ----
-# Job Submission: Interactive Job
+#  Interactive Job Submission
 <style scoped>section { font-size: 21px; }</style>
 
 Interactive job submission is typically used for code debugging, testing, monitoring.
@@ -379,7 +378,7 @@ exit
 - Slurm flag: --partition=lr_bigmem
 ----
 
-# Submit a Batch Job
+# Batch Job Submission
 <style scoped>section { font-size: 21px; }</style>
 - Get help with the complete command options `sbatch --help`
 - sbatch: submit a job to the batch queue system `sbatch myjob.sh`
@@ -408,7 +407,7 @@ python my.py >& mypy.out
 
 ----
 
-# Submit Jobs to es1 GPU Partition
+## Submit Jobs to es1 GPU Partition
 <style scoped>section { font-size: 18px; }</style>
 - `--gres=gpu:type:GPU#`
 - `--ntasks=CPU_CORE#`
@@ -461,7 +460,7 @@ GPU 1: Tesla V100-SXM2-16GB (UUID: GPU-50d24ac9-9eea-f96b-cc8b-db849f9c9427)
 ```
 
 -----
-# Submit A GPU Batch Job 
+## Submit A GPU Batch Job 
 
 **myjob_gpu.sh**: Job Submission Script for GPUs
 
@@ -485,7 +484,7 @@ module load ml/tensorflow/2.5.0-py37
 python tf.py >& tf.out
 ```
 ----
-# Submiting  MPI Jobs
+## Submiting  MPI Jobs
 
 When using multiple nodes, you need to carefully specify the resources. The key flags to use in your job script are:
 
@@ -518,7 +517,7 @@ srun ./hello >& hello.out
 ```
 
 ---
-# Submit Serial Tasks in Parallel (GNU Parallel) 
+## Submit Serial Tasks in Parallel (GNU Parallel) 
 
 GNU Parallel is a shell tool for executing jobs in parallel on one or multiple computers.
 
@@ -580,7 +579,7 @@ Host file will be generated at run time by the above script.
 Detailed information of how to submit serial tasks in parallel with [GNU Parallel](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/running-jobs/gnu-parallel/)
 
 ----
-# Monitoring Jobs
+##  Job Monitoring
 
 - **sinfo**: check node status of a partition (idle, allocated, drain, down) 
 ```
