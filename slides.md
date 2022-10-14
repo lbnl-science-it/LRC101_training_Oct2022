@@ -126,7 +126,7 @@ Upon login to Lawrencium, you'll end up on one of the login nodes(n000[0-3].scs0
 ## User Spaces
 
 - Home: `/global/home/users/$USER/` 20GB per user, data is backed up, recommended for keeping scripts and final results data
-- Global Scratch: `/global/scratch//users/$USER/`, shared, no backup, high performance Lustre parallel filesystem, recommended for keeping non-persistent data for computation.
+- Global Scratch: `/global/scratch/users/$USER/`, shared, no backup, high performance Lustre parallel filesystem, recommended for keeping non-persistent data for computation.
 - Shared group project space
    - /global/home/groups-sw/  200GB backup
    - /global/home/group/ 400GB no backup
@@ -185,10 +185,10 @@ Once the coneection is estblished, you are ready to drag and drop files to/from 
 
 ----
 
-## Software Module Farm 
+# Software Access: Software Module Farm 
 <style scoped>section { font-size: 22px; }</style>
 
-- Software stack, commonly used compiler, software tools are provided to all users
+- Software stack, commonly used compiler, software tools are provided to all users theough [software module farm on lawrencium](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/software-module-farm/)
 - Installed and maintained on a centralized storage device and mounted as read-only NFS file system
    - Compilers: e.g. intel, gcc, MPI compilers, Python
    - Tools: e.g.matlab, singularity/apptainer, cuda
@@ -232,23 +232,21 @@ module av openmpi
 module load mkl/2016.4.072 openmpi/3.0.1-intel
 ```
 ---
-## Environment Modules
-- Want to learn more about the Environment Modules? [Click here](https://it.lbl.gov/resource/hpc/for-users/hpc-documentation/software-module-farm/)
+# Software Installation
+
 - Users are allowed to install software in their home or group space. All group memebers can access packages installed in group space.
 - Users don't have admin rights, but most software can be installed at custom path using 
 ` --prefix=/path/to/your/dir`
 
----
-
-# Installing Python Packages
-
+####  Installing Python Packages as an example case
 - Python modules: abundantly available but cannot be installed in the default location without admin rights.
 - `pip install --user package_name`
 - `export PYTHONPATH`
+
+---
+
 ```
-
 [spsoni@n0000 ~]$ module load python/3.9.12
-
 [spsoni@n0000 ~]$ python3 -m site --user-site
 /global/home/users/spsoni/.local/lib/python3.9/site-packages
 [spsoni@n0000 ~]$ pip install --user ml-python
@@ -256,12 +254,9 @@ module load mkl/2016.4.072 openmpi/3.0.1-intel
 Successfully built ml-python
 Installing collected packages: ml-python
 Successfully installed ml-python-2.2
-
 [spsoni@n0000 ~]$ export PYTHONPATH=~/.local/lib/python3.9/site-packages/$PYTHONPATH
 ```
----
-# Installing Python Packages
-
+<style scoped>section { font-size: 23px; }</style>
 - pip install: `--install-option="--prefix=$HOME/.local" package_name`
 - Install from source code: `python setup.py install –-prefix=/home/user/package_dir`
 - Create a virtual environmemt: `python -m venv my_env`
@@ -388,6 +383,7 @@ exit
 <style scoped>section { font-size: 21px; }</style>
 - Get help with the complete command options `sbatch --help`
 - sbatch: submit a job to the batch queue system `sbatch myjob.sh`
+- Download batch job scripts [here](https://drive.google.com/drive/folders/1Dxuw90Qn84J060GxGVqwegR-1S00Mq7o?usp=sharing).
   
 **myjob.sh** : Job submission script for serial job
 
@@ -462,7 +458,6 @@ GPU 1: Tesla V100-SXM2-16GB (UUID: GPU-50d24ac9-9eea-f96b-cc8b-db849f9c9427)
 
 [spsoni@n0016 ~]$ echo $CUDA_VISIBLE_DEVICES
 0,1
-
 ```
 
 -----
